@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+<bean id="temperatureSensor" class="com.metropolitan.it355.dz11.TemperatureSensorImpl">
+    <property name="destination" ref="tempDestination" />
+    <property name="jmsTemplate" ref="jmsTemplate" />
+</bean>
+
+<bean id="temperatureSensor2" class="com.metropolitan.it355.dz11.TemperatureSensorImpl">
+    <property name="destination" ref="tempDestination" />
+    <property name="jmsTemplate" ref="jmsTemplate" />
+</bean>
+
+<bean id="connectionFactory"
+    class="org.apache.activemq.ActiveMQConnectionFactory">
+    <property name="brokerURL" value="tcp://localhost:61616" />
+</bean>
+
+<bean id="tempDestination"
+    class="org.apache.activemq.command.ActiveMQQueue">
+    <constructor-arg value="mail.queue" />
+</bean>
+
+<bean id="jmsTemplate"
+    class="org.springframework.jms.core.JmsTemplate">
+    <property name="connectionFactory" ref="connectionFactory" />
+</bean>
+</beans>
